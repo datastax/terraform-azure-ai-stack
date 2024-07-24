@@ -7,7 +7,7 @@ provider "azurerm" {
 }
 
 module "datastax-ai-stack-azure" {
-  source = "../../modules/azure"
+  source = "./../.."
 
   resource_group_config = {
     create_resource_group = {

@@ -1,9 +1,8 @@
-output "langflow_fqdn" {
-  value = module.langflow[*].fqdn
-}
-
-output "assistants_fqdn" {
-  value = module.assistants[*].fqdn
+output "container_app_fqdns" {
+  value = {
+    for component in [module.langflow, module.assistants] : component[0]["container_info"]["name"] => component[0]["fqdn"]
+    if try(component[0]["fqdn"], null) != null
+  }
 }
 
 output "astra_vector_dbs" {
