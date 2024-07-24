@@ -1,11 +1,15 @@
-# Datastax AI stack (Azure)
+# DataStax AI stack (Azure)
 
-Terraform module which helps you quickly deploy an opinionated AI/RAG stack to Azure, provided by Datastax.
+Terraform module which helps you quickly deploy an opinionated AI/RAG stack to Azure, provided by DataStax.
 
 It offers multiple easy-to-deploy components, including:
  - Langflow
  - Astra Assistants API
- - Vector databases
+ - Astra Vector Databases
+
+Links:
+ - Root git repo: https://github.com/datastax/terraform-datastax-ai-stack
+ - Module registry: https://registry.terraform.io/modules/datastax/ai-stack/azure/latest
 
 ## Prerequisites
 
@@ -19,7 +23,8 @@ To allow the module to configure necessary any DNS/Custom Domain settings, you'l
 
 ```hcl
 module "datastax-ai-stack-azure" {
-  source  = "datastax/ai-stack/astra//modules/azure"
+  source  = "datastax/ai-stack/azure"
+  version = "~> 1.0"
 
   resource_group_config = {
     create_resource_group = {
@@ -38,7 +43,7 @@ module "datastax-ai-stack-azure" {
   langflow = {
     subdomain = "langflow"
     postgres_db = {
-      sku_name            = "B_Standard_B1ms"
+      sku_name = "B_Standard_B1ms"
     }
   }
 
@@ -129,13 +134,16 @@ Quickly sets up vector-enabled Astra Databases for your project.
 
 ## Outputs
 
-### `langflow_fqdn` (`string`)
+### `container_app_fqdns` (`map(string)`)
 
-The fully-qualified domain name of the created langflow service (if it exists)
+A map of container apps to their fully-qualified domain names (if it exists)
 
-### `assistants_fqdn` (`string`)
-
-The fully-qualified domain name of the created astra-assistants-api service (if it exists)
+```hcl
+"container_app_fqdns": {
+  "astra-assistants": "astra-assistants-service--123abcd.grayocean-1234abcd.eastus.azurecontainerapps.io",
+  "langflow": "langflow-service--123abcd.grayocean-1234abcd.eastus.azurecontainerapps.io",
+}
+```
 
 ### `astra_vector_dbs` (`map(object)`)
 
@@ -151,4 +159,3 @@ A map of DB IDs => DB info for all of the dbs created (from the `assistants` mod
   }
 }
 ```
-

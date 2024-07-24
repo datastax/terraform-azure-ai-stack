@@ -1,4 +1,4 @@
-## Datastax AI stack (Azure) without a custom domain
+## DataStax AI stack (Azure) without a custom domain
 
 ## Table of contents
 
@@ -12,12 +12,12 @@
 
 ### 1.1 - About this module
 
-Terraform module which helps you quickly deploy an opinionated AI/RAG stack to your cloud provider of choice, provided by Datastax.
+Terraform module which helps you quickly deploy an opinionated AI/RAG stack to your cloud provider of choice, provided by DataStax.
 
 It offers multiple easy-to-deploy components, including:
  - Langflow
  - Astra Assistants API
- - Vector databases
+ - Astra Vector Databases
 
 ### 1.2 - About this example
 
@@ -47,7 +47,7 @@ terraform -v
 
 ### 2.2 - Astra token w/ sufficient perms
 
-Additionally, you'll need a Datastax AstraDB token to enable creation and management of any vector databases.
+Additionally, you'll need a DataStax AstraDB token to enable creation and management of any vector databases.
 
 The token must have the sufficient perms to manage DBs, as shown in the steps below.
 
@@ -154,16 +154,16 @@ terraform init
 
 ### 4.1 - Actually deploying
 
-- ✅ `4.1.a` - Run the following command to list out the components to be created.  The `dns_name` will be the apex domain you created a managed zone for earlier (e.g. `azure.enterprise-ai-stack.com`)
+- ✅ `4.1.a` - Run the following command to list out the components to be created.  The `dns_zone` will be the apex domain you created a managed zone for earlier (e.g. `azure.enterprise-ai-stack.com`)
 
 ```sh
-terraform plan -var="astra_token=<your_astra_token>" -var="dns_name=<dns_name>"
+terraform plan -var="astra_token=<your_astra_token>" -var="dns_zone=<dns_zone>"
 ```
 
 - ✅ `4.1.b` - Once you're ready to commit to the deployment, run the following command, and type `yes` after double-checking that it all looks okay
 
 ```sh
-terraform apply -var="astra_token=<your_astra_token>" -var="dns_name=<dns_name>"
+terraform apply -var="astra_token=<your_astra_token>" -var="dns_zone=<dns_zone>"
 ```
 
 - ✅ `4.1.c` - Simply wait for it to finish deploying everything—it may take a hot minute!
@@ -203,5 +203,5 @@ The [Data API clients](https://docs.datastax.com/en/astra-db-serverless/api-refe
 - ✅ `5.1.a` - When you're done, you can easily tear everything down with the following command:
 
 ```sh
-terraform destroy -var="astra_token=<your_astra_token>" -var="dns_name=<dns_name>"
+terraform destroy -var="astra_token=<your_astra_token>" -var="dns_zone=<dns_zone>"
 ```
